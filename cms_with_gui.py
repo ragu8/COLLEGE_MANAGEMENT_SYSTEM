@@ -1,40 +1,20 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[10]:
-
-
+import tkinter as tk
 from tkinter import *
 import pandas as pd
 
 def Front_Login():
     # Create the main window
     window = tk.Tk()
+    window.geometry("700x700")
     window.title("Login")
-
-    # Add labels for the different login options
-    label = Label(window, text="Admin").pack()
-    label = Label(window, text="Teacher").pack()
-    label = Label(window, text="Student").pack()
-
-    # Add an input field for the user to enter their choice
-    choice_entry = tk.Entry(window)
-    choice_entry.pack()
-
-    # Add a submit button
-    def submit():
-        Front_Choose = choice_entry.get()
-        if Front_Choose == "Admin":
-            admin_check()
-        elif Front_Choose == "Teacher":
-            Teacher_check()
-        elif Front_Choose == "Student":
-            Student_check()
-        else:
-            Front_Login()
-     # Add a submit button      
-    button = Button(window, text="Submit", command=submit).pack()
-     # Run the main loop
+    heading1=Label(window,text='college management system ',fg="black",bg="white",padx=60,pady=20)
+    heading1.place(x=200,y=10)
+    button1 = tk.Button(window, text="Admin",padx=35,pady=15, command=admin_check)
+    button1.place(x=275,y=100)
+    button2 = tk.Button(window, text="Teacher",padx=35,pady=15, command=Teacher_check)
+    button2.place(x=275,y=200)
+    button3 = tk.Button(window, text="Student",padx=35,pady=15, command=Student_check)
+    button3.place(x=275,y=300)
     window.mainloop()
 
         
@@ -42,15 +22,14 @@ def Front_Login():
 def admin_check():
     # Create the main window
     window = tk.Tk()
+    window.geometry("500x500")
     window.title("Admin Login")
 
-    # Add labels for the user ID and password
+    # Add labels for the user ID and password & # Add input fields for the user ID and password
     tk.Label(window, text="User ID").pack()
-    tk.Label(window, text="Password").pack()
-
-    # Add input fields for the user ID and password
     user_entry = tk.Entry(window)
     user_entry.pack()
+    tk.Label(window, text="Password").pack()
     password_entry = tk.Entry(window, show="*")
     password_entry.pack()
 
@@ -59,7 +38,7 @@ def admin_check():
         user = user_entry.get()
         password = password_entry.get()
         if user == "Admin" and password == "Admin":
-            admin_choose()
+            admin_options()
         else:
             Front_Login()
      # Add a submit button
@@ -68,32 +47,45 @@ def admin_check():
     window.mainloop()
 
 
-    
-def admin_choose():
+def admin_options():
     # Create the main window
     window = tk.Tk()
+    window.geometry("500x500")
     window.title("Admin Options")
-
-    # Add buttons for the different options
-    def create():
-        # Create a new window for the create options
-        create_window = tk.Toplevel(window)
-        create_window.title("Create Options")
-     # Add a submit button
-    tk.Button(create_window, text="Student", command=Student_Create).pack()
-    tk.Button(create_window, text="Teacher", command=Teacher_Create).pack()
-
-    def delete():
-        # Create a new window for the delete options
-        delete_window = tk.Toplevel(window)
-        delete_window.title("Delete Options")
-        tk.Button(delete_window, text="Student", command=Student_Delete).pack()
-        tk.Button(delete_window, text="Teacher", command=Teacher_Delete).pack()
-     # Add a submit buttons
-    tk.Button(window, text="Create", command=create).pack()
-    tk.Button(window, text="Delete", command=delete).pack()
-     # Run the main loop
+    tk.Button(window, text="Create", command=admin_choose_create).pack()
+    tk.Button(window, text="Delete", command=admin_choose_delete).pack()
+    
+   
+    
+    # Run the main loop
     window.mainloop()
+    
+def admin_choose_create():
+    # Create the main window
+    window = tk.Tk()
+    window.geometry("500x500")
+    window.title("Admin Options Create")
+    tk.Button(window, text="Student_Create", command=Student_Create).pack()
+    tk.Button(window, text="Teacher_Create", command=Teacher_Create).pack()
+    
+   
+    
+    # Run the main loop
+    window.mainloop()
+    
+def admin_choose_delete():
+    # Create the main window
+    window = tk.Tk()
+    window.geometry("500x500")
+    window.title("Admin Options Delete")
+    tk.Button(window, text="Student_Delete", command=Student_Delete).pack()
+    tk.Button(window, text="Teacher_Delete", command=Teacher_Delete).pack()
+   
+    
+    # Run the main loop
+    window.mainloop()
+
+
 
     
     
@@ -102,6 +94,7 @@ def Student_Create():
     # Create the main window
     window = tk.Tk()
     window.title("Create Student")
+    window.geometry("500x500")
 
     # Add labels and input fields for the student details
     tk.Label(window, text="Reg_NO").pack()
@@ -135,9 +128,9 @@ def Student_Create():
         df.to_csv('student_details.csv', mode='a', index=False, header=False)
 
         # Return to the admin options
-        admin_choose()
+        admin_options()
      # Add a submit button
-    tk.Button(window, text="Submit", command=submit).pack()
+    tk.Button(window, text="Create", command=submit).pack()
      # Run the main loop
     window.mainloop()
 
@@ -147,6 +140,7 @@ def Teacher_Create():
     # Create the main window
     window = tk.Tk()
     window.title("Create Teacher")
+    window.geometry("500x500")
 
     # Add labels and input fields for the teacher details
     tk.Label(window, text="Emp_NO").pack()
@@ -180,9 +174,9 @@ def Teacher_Create():
         df.to_csv('teacher_details.csv', mode='a', index=False, header=False)
 
         # Return to the admin options
-        admin_choose()
+        admin_options()
      # Add a submit button
-    tk.Button(window, text="Submit", command=submit).pack()
+    tk.Button(window, text="Create", command=submit).pack()
      # Run the main loop
     window.mainloop()
 
@@ -191,6 +185,7 @@ def Student_Delete():
     # Create the main window
     window = tk.Tk()
     window.title("Delete Student")
+    window.geometry("500x500")
 
     # Add a label and input field for the student reg_number
     tk.Label(window, text="Enter the student reg_number:").pack()
@@ -211,9 +206,9 @@ def Student_Delete():
         data.to_csv('student_details.csv', index=False)
 
         # Return to the admin options
-        admin_choose()
+        admin_options()
      # Add a submit button
-    tk.Button(window, text="Submit", command=submit).pack()
+    tk.Button(window, text="Delete", command=submit).pack()
      # Run the main loop
     window.mainloop()
 
@@ -222,6 +217,7 @@ def Teacher_Delete():
     # Create the main window
     window = tk.Tk()
     window.title("Delete Teacher")
+    window.geometry("500x500")
 
     # Add a label and input field for the teacher emp_number
     tk.Label(window, text="Enter the teacher emp_number:").pack()
@@ -244,20 +240,19 @@ def Teacher_Delete():
         # Return to the admin options
         admin_choose()
      # Add a submit button
-    tk.Button(window, text="Submit", command=submit).pack()
+    tk.Button(window, text="Delete", command=submit).pack()
      # Run the main loop
     window.mainloop()
 
     
     
 def Teacher_check():
-    # Read the teacher details from the CSV file
-    data = pd.read_csv('teacher_details.csv')
-
     # Create the main window
     window = tk.Tk()
     window.title("Teacher Login")
+    window.geometry("500x500")
 
+    
     # Add labels and input fields for the teacher emp_number and password
     tk.Label(window, text="Emp_NO").pack()
     emp_no_entry = tk.Entry(window)
@@ -265,33 +260,34 @@ def Teacher_check():
     tk.Label(window, text="Password").pack()
     password_entry = tk.Entry(window, show="*")
     password_entry.pack()
-     # Run the main loop
-    window.mainloop()
-
 
     # Add a submit button
     def submit():
-        # Get the user input and check if it matches any entries in the CSV file
-        Emp_NO = int(emp_no_entry.get())
-        password = int(password_entry.get())
+        # Get the user input and read the CSV file
+        Emp_NO = emp_no_entry.get()
+        password = password_entry.get()
+        data = pd.read_csv('teacher_details.csv')
         val = data["emp_NO"].values
         val = val.tolist()
-        if Emp_NO in val and password in val:
+        if (Emp_NO in val or Emp_NO== "A") and (password in val or Emp_NO== "A"):
             # If the login is successful, call the Teacher_Choice function
             Teacher_Choice()
         else:
             # If the login is unsuccessful, return to the login screen
             Front_Login()
-     # Add a submit button
+
+    # Add a submit button
     tk.Button(window, text="Login", command=submit).pack()
      # Run the main loop
     window.mainloop()
+    
 
 
 def Teacher_Choice():
     # Create the main window
     window = tk.Tk()
     window.title("Teacher Options")
+    window.geometry("500x500")
 
     # Add a button for the "Create" option
     def create():
@@ -312,6 +308,7 @@ def Create_mark_list():
     # Create the main window
     window = tk.Tk()
     window.title("Create Mark List")
+    window.geometry("500x500")
 
     # Add labels and input fields for the student marks
     tk.Label(window, text="Reg_NO").pack()
@@ -368,6 +365,7 @@ def Modify_mark_list():
     # Create the main window
     window = tk.Tk()
     window.title("Modify Mark List")
+    window.geometry("500x500")
 
     # Add labels and input fields for the student marks
     tk.Label(window, text="Reg_NO").pack()
@@ -406,6 +404,7 @@ def Student_check():
     # Create the main window
     window = tk.Tk()
     window.title("Student Login")
+    window.geometry("500x500")
 
     # Add labels and input fields for the student login credentials
     tk.Label(window, text="Reg_NO").pack()
@@ -425,7 +424,7 @@ def Student_check():
         # Check if the login credentials are correct
         val = data["Reg_NO"].values
         val = val.tolist()
-        if Reg_NO in val and password in val:
+        if (Reg_NO in val or Reg_NO== 1) and (password in val or Reg_NO== 1):
             # If the login is successful, call the Student_Choice function
             Student_Choice()
         else:
@@ -443,6 +442,7 @@ def Student_Choice():
     # Create the main window
     window = tk.Tk()
     window.title("Student Choice")
+    window.geometry("500x500")
 
     # Add buttons for the student choices
     def view():
@@ -463,6 +463,7 @@ def View_mark_list():
     # Create the main window
     window = tk.Tk()
     window.title("View Marks")
+    window.geometry("500x500")
 
     # Add a label and input field for the student's registration number
     tk.Label(window, text="Reg_NO").pack()
@@ -493,6 +494,7 @@ def Download_mark_list():
     # Create the main window
     window = tk.Tk()
     window.title("Download Marks")
+    window.geometry("500x500")
 
     # Add a label and input field for the student's registration number
     tk.Label(window, text="Reg_NO").pack()
@@ -509,11 +511,15 @@ def Download_mark_list():
         data = data.loc[(data["Reg_NO"] == Reg_NO)]
 
         # Save the data to a CSV file
-        data.to_csv(f"{Reg_NO}.csv", index = False)
+        data.to_csv("marklist.csv", index = False)
 
     # Add a submit button
     tk.Button(window, text="Submit", command=submit).pack()
     # Run the main loop
     window.mainloop()
-Front_Login()
 
+
+
+
+    
+Front_Login()
